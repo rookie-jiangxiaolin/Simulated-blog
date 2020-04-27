@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hz.dao.ReplyDao">
+
+    <resultMap id="basesResult" type="com.hz.bean.Reply">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="topic_id" property="topicId" jdbcType="INTEGER"></result>
+        <result column="reply_user_id" property="replyUserId" jdbcType="INTEGER"></result>
+        <result column="reply_content" property="replyContent" jdbcType="VARCHAR"></result>
+        <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+
+    <select id="selectAllByTopicId" resultMap="basesResult" parameterType="com.hz.bean.Reply">
+        select * from reply where topic_id=#{topicId}
+    </select>
+
+    <insert id="createReply" parameterType="com.hz.bean.Reply">
+        insert into reply(topic_id,reply_user_id,reply_content) values(#{topicId},#{replyUserId},#{replyContent})
+    </insert>
+
+</mapper>

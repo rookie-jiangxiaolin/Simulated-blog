@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hz.dao.TopicDao">
+
+    <resultMap id="basesResult" type="com.hz.bean.Topic">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="user_id" property="userId" jdbcType="INTEGER"></result>
+        <result column="post_time" property="postTime" jdbcType="TIMESTAMP"></result>
+        <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP"></result>
+        <result column="title" property="title" jdbcType="VARCHAR"></result>
+        <result column="content" property="content" jdbcType="CLOB"></result>
+        <result column="click" property="click" jdbcType="INTEGER"></result>
+        <result column="kind_id" property="kindId" jdbcType="INTEGER"></result>
+    </resultMap>
+
+    <select id="quarrySelectAll" resultMap="basesResult" parameterType="com.hz.bean.Topic">
+        select * from topic order by id desc
+    </select>
+
+<!--    <select id="selectAllTopic" resultType="int" parameterType="com.hz.bean.Topic">-->
+<!--        select count(*) from topic-->
+<!--    </select>-->
+
+    <select id="quarrySelectAllByKindId" resultMap="basesResult" parameterType="com.hz.bean.Topic">
+        select * from topic where kind_id=#{kindId}
+    </select>
+
+    <select id="quarryTopicById" resultMap="basesResult" parameterType="com.hz.bean.Topic">
+        select * from topic where id=#{id}
+    </select>
+
+    <insert id="createTitle" parameterType="com.hz.bean.Topic">
+        insert into topic(user_id,title,content,kind_id) values(#{userId},#{title},#{content},#{kindId})
+    </insert>
+
+    <select id="quarrySelectAllByUserId" resultMap="basesResult" parameterType="com.hz.bean.Topic">
+        select * from topic where user_id=#{userId}
+    </select>
+
+</mapper>
